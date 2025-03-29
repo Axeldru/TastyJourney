@@ -10,7 +10,7 @@ document.head.appendChild(script);
 
 function searchRecipes() {
   const query = document.getElementById("searchInput").value;
-  const apiUrl = `https://api.edamam.com/search?q=${query}&app_id=${appId}&app_key=${apiKey}&from=${page}`;
+  const apiUrl = `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${appId}&app_key=${apiKey}&from=${(page - 1) * 10}&to=${page * 10}`;
 
   fetch(apiUrl)
     .then((response) => response.json())
