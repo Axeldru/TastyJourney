@@ -1,4 +1,4 @@
-const apiKey = "5448e4c6f81411ec564212e5c2642c59";
+const apiKey = "7742bf65eb5df1a2a70f629b482736f4";
 const appId = "326422bd";
 
 let page = 1; // Initialize the page number to 1
