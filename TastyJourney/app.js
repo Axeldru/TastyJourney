@@ -17,11 +17,11 @@ function searchRecipes() {
     .then((data) => {
       // Update the page variable if there's a next page link
       if (data._links?.next?.href) {
-        const nextPageNumber = new URL(data._links.next.href).searchParams.get('from');
-        page = parseInt(nextPageNumber, 10);
+        nextPage = data._links.next.href;
       } else {
-        page++; // Increment the page if there's no next page link
+        nextPage = null;
       }
+      
 
       displayResults(data);
     })
@@ -212,11 +212,17 @@ function displayResults(data) {
   });
 }
 function loadMoreResults() {
-  if (page > 0) {
-    page++; // Increment the page variable
-    searchRecipes();
+  if (nextPage) {
+    fetch(nextPage)
+      .then((response) => response.json())
+      .then((data) => {
+        nextPage = data._links?.next?.href || null; // Update next page link
+        displayResults(data);
+      })
+      .catch((error) => console.error("Error loading more results:", error));
   }
 }
+
 
 // Function to handle Enter key press
 function handleEnterKey(event) {
